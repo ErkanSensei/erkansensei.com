@@ -1,0 +1,106 @@
+#terminal {
+    background-color: black; 
+    text-align: left;
+    transition: width 0.2s linear;
+    transition: height 0.2s linear;
+    margin: auto;
+    border-radius: 25px;
+}
+
+#console {
+    background-color: black;
+    height: 92%;
+    font-family: Courier;
+    font-size: 1.5vw;
+    text-align: left;
+    padding-left: 25px;
+    color: white;
+    border-bottom: 1px solid #333333;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    overflow: hidden;
+}
+
+#console:focus {
+    outline: 0px;
+}
+
+#header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+}
+#bar {
+    width: 100%;
+    padding-bottom: 0px;
+    height: 8%;
+    margin-top: 15px;
+    background-color: black;
+}
+
+.start {
+    color: #ED74BE;
+    font-size: 25px;
+}
+.logos {
+    margin-bottom: -10px;
+    margin-left: -5px;
+    font-size: 2vw;
+}
+
+#jslogo {
+    font-size: 2vw;
+    margin-left: -1vw;
+    color: #F3DF51;
+}
+
+#react {
+    margin-left: -20px;
+}
+
+a:hover {
+    text-decoration: underline;
+  }
+
+.projectButton {
+    background-color: black;
+    color: white;
+    transition: border 0.2s linear;
+    font-size: 3vw;
+    width: 15vw;
+    text-align: center;
+}
+
+.headerButton {
+    background-color: black;
+    color: white;
+    transition: border 0.2s linear;
+    font-size: 2.5vw;
+    width: 13vw;
+    text-align: center;
+}
+
+.headerButton:hover {
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.projectButton:hover {
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+#headerLogo {
+    width: 11vw;
+}
+
+.projectButtonContainer {
+    width: 40%;
+    margin: auto;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -1,0 +1,31 @@
+html {
+  height: 100% !important;
+}
+body {
+  margin: 0;
+  display: block;
+  color: #ABABAB;
+  background-color: black;
+  padding: 0;
+  font-family: sans-serif;
+  height: 100% !important;
+  overflow: hidden;
+}
+@font-face { 
+  font-family: Noir; 
+  src: url('./assets/fonts/Noir_medium.otf'); 
+} 
+
+h1 {
+  color: black;
+  font-size: 5vw;
+  font-family: Noir;
+}
+
+a { 
+  text-decoration: none;
+}
+
+#root {
+  height: 100% !important;
+}

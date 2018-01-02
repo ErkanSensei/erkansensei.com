@@ -1,0 +1,31 @@
+.App {
+  height: 100% !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+#content {
+  width: 90%;
+  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 0;
+  padding-left: 1%;
+  /* transition: height 0.2s linear; */
+  overflow: auto;
+  text-align: center;
+}
+#footer {
+  text-align: center;
+  height: 2%;
+}
+
+#footer > p {
+  margin: 0;
+}
