@@ -3,7 +3,7 @@
   **********************************************************/
   
   .mac_container{
-      width: 30%;
+      flex: 0.3;
       margin-top: 10vh;
       margin-bottom: 10vh;
   }

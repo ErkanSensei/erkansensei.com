@@ -14,26 +14,26 @@ const reactLogo = require('./assets/img/logo.svg');
 const hapsLogo = require('./assets/img/hapsLogo.png');
 
 const projects = [
-  // {
-  //   name: 'AOEDB.net',
-  //   image: aoelogo,
-  //   codeLink: 'https://github.com/ErkanSensei/AOEdb.net',
-  //   webLink: 'https://aoedb.net',
-  //   description: 'An overhaul of the original AOEdb.net website in Vue.js',
-  //   mainLanguage: 'Vue.js',
-  //   technologies: ['Vue', 'Vue-router', 'Bootstrap'],
-  //   platform: 'web',
-  // },
-  // {
-  //   name: 'erkansensei.com',
-  //   image: erkanLogo,
-  //   codeLink: 'https://github.com/ErkanSensei/erkansensei.github.io',
-  //   webLink: 'http://erkansensei.com',
-  //   description: 'My website! Built in React',
-  //   mainLanguage: 'React',
-  //   technologies: ['React', 'FontAwesome 5'],
-  //   platform: 'web',
-  // },
+  {
+    name: 'AOEDB.net',
+    image: aoelogo,
+    codeLink: 'https://github.com/ErkanSensei/AOEdb.net',
+    webLink: 'https://aoedb.net',
+    description: 'An overhaul of the original AOEdb.net website in Vue.js',
+    mainLanguage: 'Vue.js',
+    technologies: ['Vue', 'Vue-router', 'Bootstrap'],
+    platform: 'web',
+  },
+  {
+    name: 'erkansensei.com',
+    image: erkanLogo,
+    codeLink: 'https://github.com/ErkanSensei/erkansensei.github.io',
+    webLink: 'http://erkansensei.com',
+    description: 'My website! Built in React',
+    mainLanguage: 'React',
+    technologies: ['React', 'FontAwesome 5'],
+    platform: 'web',
+  },
   {
     name: 'SwipeEatRepeat',
     image: ser,
@@ -45,26 +45,15 @@ const projects = [
     technologies: ['React Native', 'Redux', 'Native Base'],
     platform: 'iphone',
   },
-  // {
-  //   name: 'SVG-to-ReactNativeSVG',
-  //   image: reactLogo,
-  //   codeLink: 'https://github.com/ErkanSensei/SVG-to-ReactNativeSVG',
-  //   webLink: 'http://erkansensei.com/SVG-to-ReactNativeSVG/',
-  //   description: 'A tool used to convert SVGs to ReactNative SVG',
-  //   mainLanguage: 'Javascript',
-  //   technologies: ['Javascript', 'HTML', 'CSS'],
-  //   platform: 'web',
-  // },
   {
-    name: 'TheHAPS',
-    image: hapsLogo,
-    codeLink: '',
-    webLink: 'https://thehaps.live/',
-    iosLink: 'https://itunes.apple.com/us/app/thehaps/id1251645159?mt=8',
-    description: 'An app to find events nearby',
-    mainLanguage: 'React',
-    technologies: ['React Native', 'Redux', 'Sails'],
-    platform: 'iphone',
+    name: 'SVG-to-ReactNativeSVG',
+    image: reactLogo,
+    codeLink: 'https://github.com/ErkanSensei/SVG-to-ReactNativeSVG',
+    webLink: 'http://erkansensei.com/SVG-to-ReactNativeSVG/',
+    description: 'A tool used to convert SVGs to ReactNative SVG',
+    mainLanguage: 'Javascript',
+    technologies: ['Javascript', 'HTML', 'CSS'],
+    platform: 'web',
   },
   {
     name: 'TheHAPS',
@@ -85,6 +74,12 @@ export default class App extends React.Component {
     this.state = {
       content: 'Projects',
     };
+    this.colors = [
+      '#DC4547',
+      '#F0DF6A',
+      '#77B38A',
+      '#83BDD8'
+    ];
   }
 
   componentDidMount() {
@@ -100,11 +95,26 @@ export default class App extends React.Component {
 
     $('.linksContainer').each(function () {
       if ($(this).children().length > 2) {
-        $(this).css('width', '70%');
+        $(this).css('width', '60%');
       } else {
-        $(this).css('width', '50%');
+        $(this).css('width', '40%');
       }
     });
+
+    setInterval(() => {
+      const colorIndex = Math.floor(Math.random() * 3);
+      let textColor;
+      if (colorIndex === 0 || colorIndex === 2) {
+        textColor = 'white';
+      } else {
+        textColor = 'black';
+      }
+      $('.textContainer')
+      .css('background-color', this.colors[colorIndex])
+      .css('transition', 'all 1s')
+      .css('color', textColor);
+      $('.Dropdown-control').css('color', textColor);
+    }, 3000)
   }
   onSelect = (text) => {
     var elementClicked = $('#content');
@@ -124,10 +134,9 @@ export default class App extends React.Component {
             <p className='mainText'>I AM</p>
             <p className='mainText'>ERKAN SEN,</p>
             <Dropdown
-              className='jumper'
-              options={['A WEB/MOBILE', 'A BLOGGING', 'AN EXPERIENCED', 'A SOCIAL']}
+              options={['A WEB/MOBILE', 'A SOCIAL', 'AN EXPERIENCED', 'A CONTACTABLE']}
               onChange={() => setTimeout(this.onSelect, 300)}
-              value='(fill in the blank)'
+              value='(click here)'
               placeholder='Select an option'
             />
             <p className='mainText'>DEVELOPER</p>
@@ -136,7 +145,9 @@ export default class App extends React.Component {
         <div id='content'>
           {projects.map(project => (
             <div className='projectContainer'>
-              <IPhone image={project.image} />
+              {project.platform === 'web'
+              ? <Macbook image={project.image} />
+              : <IPhone image={project.image} />}
               <Card
                 name={project.name}
                 codeLink={project.codeLink}
