@@ -73,6 +73,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       content: 'Projects',
+      colors: ['A WEB/MOBILE', '#DC4547'],
     };
     this.colors = {
       'A WEB/MOBILE': '#DC4547',
@@ -100,6 +101,20 @@ export default class App extends React.Component {
         $(this).css('width', '40%');
       }
     });
+    const headerStyles = ` <style id='diagonalAfter' type='text/css'> .diagonal:after {content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500%;
+    height: 1000%;
+    background: #DC4547;
+    color: white;
+    z-index: -1;
+    transform-origin: 0% 0%;
+    transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
+    transform: translateY(10%) translateX(16%) rotate(-45deg);
+    transition: transform .3s;} .diagonal:hover {color: white}</style>`;
+    $('head').append(headerStyles);
   }
   onSelect = (text) => {
     let textColor;
@@ -109,18 +124,38 @@ export default class App extends React.Component {
       textColor = 'black';
     }
 
-    console.log(text)
     $('.textContainer, .Dropdown-control')
-    .css('background-color', this.colors[text.value])
-    .css('color', textColor)
-    .css('transition', 'background-color 0.05s linear')
-    setTimeout(() => {
-      var elementClicked = $('#content');
-      var destination = $(elementClicked).offset().top;
-      $('html, body').animate({
-        scrollTop: parseInt($('#App').scrollTop() + destination),
-      });
-    }, 250);
+      .css('background-color', this.colors[text.value])
+      .css('color', textColor)
+      .css('transition', 'background-color 0.05s linear');
+
+    setTimeout(
+      () => {
+        var elementClicked = $('#content');
+        var destination = $(elementClicked).offset().top;
+        $('html, body').animate({
+          scrollTop: parseInt($('#App').scrollTop() + destination),
+        });
+      },
+      250,
+    );
+
+    $('#diagonalAfter').remove();
+    const headerStyles = ` <style id='diagonalAfter' type='text/css'> .diagonal:after {content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500%;
+    height: 1000%;
+    background: ${this.colors[text.value]};
+    color: ${textColor};
+    z-index: -1;
+    transform-origin: 0% 0%;
+    transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
+    transform: translateY(10%) translateX(16%) rotate(-45deg);
+    transition: transform .3s;} .diagonal:hover {color: ${textColor}}</style>`;
+    $('head').append(headerStyles);
+    this.setState({ colors: [this.colors[text.value], textColor] });
   };
 
   render() {
@@ -133,7 +168,12 @@ export default class App extends React.Component {
             <p className='mainText'>I AM</p>
             <p className='mainText'>ERKAN SEN,</p>
             <Dropdown
-              options={['A WEB/MOBILE', 'A SOCIAL', 'AN EXPERIENCED', 'A CONTACTABLE']}
+              options={[
+                'A WEB/MOBILE',
+                'A SOCIAL',
+                'AN EXPERIENCED',
+                'A CONTACTABLE',
+              ]}
               onChange={e => this.onSelect(e)}
               value='(click here)'
               placeholder='Select an option'
@@ -145,8 +185,8 @@ export default class App extends React.Component {
           {projects.map(project => (
             <div className='projectContainer'>
               {project.platform === 'web'
-              ? <Macbook image={project.image} />
-              : <IPhone image={project.image} />}
+                ? <Macbook image={project.image} />
+                : <IPhone image={project.image} />}
               <Card
                 name={project.name}
                 codeLink={project.codeLink}
@@ -157,9 +197,10 @@ export default class App extends React.Component {
                 arrow='ar'
                 iosLink={project.iosLink}
                 platform={project.platform}
+                colors={this.state.colors}
               />
             </div>
-            ))}
+          ))}
         </div>
       </div>
     );
