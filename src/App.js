@@ -131,10 +131,10 @@ export default class App extends React.Component {
 
     setTimeout(
       () => {
-        var elementClicked = $('#content');
-        var destination = $(elementClicked).offset().top;
+        const elementClicked = $('#content');
+        const destination = $(elementClicked).offset().top;
         $('html, body').animate({
-          scrollTop: parseInt($('#App').scrollTop() + destination),
+          scrollTop: parseInt($('#App').scrollTop() + destination, 10),
         });
       },
       250,
