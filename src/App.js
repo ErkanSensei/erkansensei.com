@@ -1,9 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
 import Dropdown from 'react-dropdown';
-import Card from './components/Card'
-import IPhone from './components/IPhone'
-import Macbook from './components/Macbook'
+import Card from './components/Card';
+import IPhone from './components/IPhone';
+import Macbook from './components/Macbook';
 import 'react-dropdown/style.css';
 import './App.css';
 
@@ -12,6 +12,7 @@ const erkanLogo = require('./assets/img/profile2.png');
 const ser = require('./assets/img/ser.png');
 const reactLogo = require('./assets/img/logo.svg');
 const hapsLogo = require('./assets/img/hapsLogo.png');
+
 const projects = [
   // {
   //   name: 'AOEDB.net',
@@ -36,18 +37,7 @@ const projects = [
   {
     name: 'SwipeEatRepeat',
     image: ser,
-    codeLink: null,
-    iosLink: '',
-    webLink: 'http://swipeeatrepeat.com',
-    description: 'An app to help people find new places to eat!',
-    mainLanguage: 'React',
-    technologies: ['React Native', 'Redux', 'Native Base'],
-    platform: 'iphone',
-  },
-  {
-    name: 'SwipeEatRepeat',
-    image: ser,
-    codeLink: null,
+    codeLink: 'https://github.com/ErkanSensei/SwipeEatRepeat',
     iosLink: '',
     webLink: 'http://swipeeatrepeat.com',
     description: 'An app to help people find new places to eat!',
@@ -107,6 +97,14 @@ export default class App extends React.Component {
         }
       });
     });
+
+    $('.linksContainer').each(function () {
+      if ($(this).children().length > 2) {
+        $(this).css('width', '70%');
+      } else {
+        $(this).css('width', '50%');
+      }
+    });
   }
   onSelect = (text) => {
     var elementClicked = $('#content');
@@ -127,33 +125,31 @@ export default class App extends React.Component {
             <p className='mainText'>ERKAN SEN,</p>
             <Dropdown
               className='jumper'
-              options={['A WEB', 'A MOBILE', 'AN EXPERIENCED', 'A SOCIAL']}
+              options={['A WEB/MOBILE', 'A BLOGGING', 'AN EXPERIENCED', 'A SOCIAL']}
               onChange={() => setTimeout(this.onSelect, 300)}
-              value='A WEB'
+              value='(fill in the blank)'
               placeholder='Select an option'
             />
             <p className='mainText'>DEVELOPER</p>
           </div>
         </div>
         <div id='content'>
-          {projects.map(project => {
-            return (
-              <div className='projectContainer'>
-                <IPhone image={project.image}/>
-                <Card
+          {projects.map(project => (
+            <div className='projectContainer'>
+              <IPhone image={project.image} />
+              <Card
                 name={project.name}
                 codeLink={project.codeLink}
                 webLink={project.webLink}
                 description={project.description}
                 mainLanguage={project.mainLanguage}
                 technologies={project.technologies}
-                arrow='arrow-left'
+                arrow='ar'
                 iosLink={project.iosLink}
                 platform={project.platform}
               />
-              </div>
-            )
-          })}
+            </div>
+            ))}
         </div>
       </div>
     );
