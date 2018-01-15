@@ -74,12 +74,12 @@ export default class App extends React.Component {
     this.state = {
       content: 'Projects',
     };
-    this.colors = [
-      '#DC4547',
-      '#F0DF6A',
-      '#77B38A',
-      '#83BDD8'
-    ];
+    this.colors = {
+      'A WEB/MOBILE': '#DC4547',
+      'A SOCIAL': '#F0DF6A',
+      'AN EXPERIENCED': '#77B38A',
+      'A CONTACTABLE': '#83BDD8',
+    };
   }
 
   componentDidMount() {
@@ -100,28 +100,27 @@ export default class App extends React.Component {
         $(this).css('width', '40%');
       }
     });
-
-    setInterval(() => {
-      const colorIndex = Math.floor(Math.random() * 3);
-      let textColor;
-      if (colorIndex === 0 || colorIndex === 2) {
-        textColor = 'white';
-      } else {
-        textColor = 'black';
-      }
-      $('.textContainer')
-      .css('background-color', this.colors[colorIndex])
-      .css('transition', 'all 1s')
-      .css('color', textColor);
-      $('.Dropdown-control').css('color', textColor);
-    }, 3000)
   }
   onSelect = (text) => {
-    var elementClicked = $('#content');
-    var destination = $(elementClicked).offset().top;
-    $('html, body').animate({
-      scrollTop: parseInt($('#App').scrollTop() + destination),
-    });
+    let textColor;
+    if (text.value === 'A WEB/MOBILE' || text.value === 'AN EXPERIENCED') {
+      textColor = 'white';
+    } else {
+      textColor = 'black';
+    }
+
+    console.log(text)
+    $('.textContainer, .Dropdown-control')
+    .css('background-color', this.colors[text.value])
+    .css('color', textColor)
+    .css('transition', 'background-color 0.05s linear')
+    setTimeout(() => {
+      var elementClicked = $('#content');
+      var destination = $(elementClicked).offset().top;
+      $('html, body').animate({
+        scrollTop: parseInt($('#App').scrollTop() + destination),
+      });
+    }, 250);
   };
 
   render() {
@@ -135,7 +134,7 @@ export default class App extends React.Component {
             <p className='mainText'>ERKAN SEN,</p>
             <Dropdown
               options={['A WEB/MOBILE', 'A SOCIAL', 'AN EXPERIENCED', 'A CONTACTABLE']}
-              onChange={() => setTimeout(this.onSelect, 300)}
+              onChange={e => this.onSelect(e)}
               value='(click here)'
               placeholder='Select an option'
             />

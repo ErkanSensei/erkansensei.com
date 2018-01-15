@@ -13,6 +13,7 @@
 }
 
 .textContainer {
+  transform: translate3d(0, 0, 0);
   height: 80%;
   align-items: center;
   justify-content: center;
@@ -72,7 +73,7 @@
   flex-wrap: wrap;
 }
 .Dropdown-control {
-  background-color: transparent;
+  background-color: #DC4547;
   color: white;
   font-family: Noir;
   font-size: 7vw;

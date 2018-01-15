@@ -50,7 +50,7 @@
   z-index: -1;
   transform-origin: 0% 0%;
   transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
-  /transform: translateY(10%) translateX(16%) rotate(-45deg);
+  transform: translateY(10%) translateX(16%) rotate(-45deg);
   transition: transform .3s;
 }
 .diagonal:hover {
@@ -58,7 +58,6 @@
 }
 .diagonal:hover::after {
   transform: translateY(10%) translateX(-100px) rotate(-45deg);
-  color: white;
 }
   
   #arrow-right {
@@ -88,4 +87,5 @@
     justify-content: space-between;
     margin: auto;
     font-size: 1vw;
+    flex-wrap: wrap;
   }
