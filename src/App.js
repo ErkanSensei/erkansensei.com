@@ -1,80 +1,27 @@
 import React from 'react';
 import $ from 'jquery';
 import Dropdown from 'react-dropdown';
-import Card from './components/Card';
-import IPhone from './components/IPhone';
-import Macbook from './components/Macbook';
-import Projects from './components/Projects';
 import 'react-dropdown/style.css';
+
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Blog from './components/Blog';
+import Resume from './components/Resume';
+
 import './App.css';
 
-const aoelogo = require('./assets/img/aoelogo.png');
-const erkanLogo = require('./assets/img/profile2.png');
-const ser = require('./assets/img/ser.png');
-const reactLogo = require('./assets/img/logo.svg');
-const hapsLogo = require('./assets/img/hapsLogo.png');
-
-const projects = [
-  {
-    name: 'AOEDB.net',
-    image: aoelogo,
-    codeLink: 'https://github.com/ErkanSensei/AOEdb.net',
-    webLink: 'https://aoedb.net',
-    description: 'An overhaul of the original AOEdb.net website in Vue.js',
-    mainLanguage: 'Vue.js',
-    technologies: ['Vue', 'Vue-router', 'Bootstrap'],
-    platform: 'web',
-  },
-  {
-    name: 'erkansensei.com',
-    image: erkanLogo,
-    codeLink: 'https://github.com/ErkanSensei/erkansensei.github.io',
-    webLink: 'http://erkansensei.com',
-    description: 'My website! Built in React',
-    mainLanguage: 'React',
-    technologies: ['React', 'FontAwesome 5'],
-    platform: 'web',
-  },
-  {
-    name: 'SwipeEatRepeat',
-    image: ser,
-    codeLink: 'https://github.com/ErkanSensei/SwipeEatRepeat',
-    iosLink: '',
-    webLink: 'http://swipeeatrepeat.com',
-    description: 'An app to help people find new places to eat!',
-    mainLanguage: 'React',
-    technologies: ['React Native', 'Redux', 'Native Base'],
-    platform: 'iphone',
-  },
-  {
-    name: 'SVG-to-ReactNativeSVG',
-    image: reactLogo,
-    codeLink: 'https://github.com/ErkanSensei/SVG-to-ReactNativeSVG',
-    webLink: 'http://erkansensei.com/SVG-to-ReactNativeSVG/',
-    description: 'A tool used to convert SVGs to ReactNative SVG',
-    mainLanguage: 'Javascript',
-    technologies: ['Javascript', 'HTML', 'CSS'],
-    platform: 'web',
-  },
-  {
-    name: 'TheHAPS',
-    image: hapsLogo,
-    codeLink: '',
-    webLink: 'https://thehaps.live/',
-    iosLink: 'https://itunes.apple.com/us/app/thehaps/id1251645159?mt=8',
-    description: 'An app to find events nearby',
-    mainLanguage: 'React',
-    technologies: ['React Native', 'Redux', 'Sails'],
-    platform: 'iphone',
-  },
-];
-
+const components = {
+  Projects,
+  Contact,
+  Blog,
+  Resume,
+}
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       content: '(click here)',
-      contentPos: 0,
+      currentComponent: null,
     };
     this.colors = {
       'A WEB/MOBILE': '#DC4547',
@@ -82,26 +29,20 @@ export default class App extends React.Component {
       'AN EXPERIENCED': '#77B38A',
       'A CONTACTABLE': '#83BDD8',
     };
+    this.contentPos = 0;
   }
 
   componentDidMount() {
     $(document).ready(() => {
       $('body').scroll(() => {
         if ($('#content').offset().top <= 500) {
-          $('#menu').slideDown(300);
+          $('#menu').slideDown(150);
         } else {
-          $('#menu').slideUp(300);
+          $('#menu').slideUp(150);
         }
       });
     });
 
-    $('.linksContainer').each(function () {
-      if ($(this).children().length > 2) {
-        $(this).css('width', '60%');
-      } else {
-        $(this).css('width', '40%');
-      }
-    });
     const headerStyles = ` <style id='diagonalAfter' type='text/css'> .diagonal:after {content: '';
     position: absolute;
     top: 0;
@@ -117,16 +58,50 @@ export default class App extends React.Component {
     transition: transform .3s;} .diagonal:hover {color: white}</style>`;
     $('head').append(headerStyles);
 
-    this.setState({ contentPos: $('#content').offset().top });
+    this.contentPos = $('#content').offset().top - 80;
+  }
+
+  componentDidUpdate() {
+    $('.linksContainer').each(function () {
+      if ($(this).children().length > 2) {
+        $(this).css('width', '60%');
+      } else {
+        $(this).css('width', '40%');
+      }
+    });
   }
   onSelect = (text) => {
     let textColor;
+    let currentComponent;
+
     if (text.value === 'A WEB/MOBILE' || text.value === 'AN EXPERIENCED') {
       textColor = 'white';
     } else {
       textColor = 'black';
     }
 
+    switch (text.value) {
+      case 'A WEB/MOBILE': {
+        currentComponent = 'Projects';
+        break;
+      }
+      case 'A SOCIAL': {
+        currentComponent = 'Blog';
+        break;
+      }
+      case 'AN EXPERIENCED': {
+        currentComponent = 'Resume';
+        break;
+      }
+      case 'A CONTACTABLE': {
+        currentComponent = 'Contact';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    
     $('.textContainer, .Dropdown-control')
       .css('background-color', this.colors[text.value])
       .css('color', textColor)
@@ -137,10 +112,8 @@ export default class App extends React.Component {
 
     setTimeout(
       () => {
-        const elementClicked = $('#content');
-        const destination = $(elementClicked).offset().top;
         $('html, body').animate({
-          scrollTop: this.state.contentPos,
+          scrollTop: this.contentPos,
         });
       },
       250,
@@ -162,12 +135,15 @@ export default class App extends React.Component {
     transition: transform .3s;} .diagonal:hover {color: ${textColor}}</style>`;
     $('head').append(headerStyles);
     this.setState({
-      colors: [this.colors[text.value], textColor],
       content: text.value,
+      currentComponent,
     });
+    
   };
 
   render() {
+    const Comp = components[this.state.currentComponent];
+    
     return (
       <div className='App' id='App'>
         <div id='menu'>
@@ -203,8 +179,8 @@ export default class App extends React.Component {
             <p className='mainText'>DEVELOPER</p>
           </div>
         </div>
-        <div id='content'>
-          <Projects />
+        <div id='content' style={{ height: this.state.currentComponent ? null : '0' }}>
+          {this.state.currentComponent && <Comp />}
         </div>
       </div>
     );

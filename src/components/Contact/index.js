@@ -26,7 +26,6 @@ class Contact extends Component {
   render() {
     return (
       <div id='contact'>
-        <h2>You can find me in these mediums: </h2>
         <div id='contactIcons'>
           <a
             target='_blank'
@@ -34,9 +33,9 @@ class Contact extends Component {
             href='mailto:erkan@bytecamp.io'
           >
             <FontAwesomeIcon
-              style={{ fontSize: '7vw' }}
+              style={{ fontSize: '180px' }}
               icon={faEnvelope}
-              color='black'
+              color='white'
             />
           </a>
           <a
@@ -51,7 +50,7 @@ class Contact extends Component {
             rel='noopener noreferrer'
             href='https://angel.co/erkan-sen-1?public_profile=1'
           >
-            <FontAwesomeIcon icon={faAngellist} color='black' />
+            <FontAwesomeIcon icon={faAngellist} color='white' />
           </a>
           <a
             target='_blank'
@@ -65,12 +64,12 @@ class Contact extends Component {
             rel='noopener noreferrer'
             href='https://github.com/ErkanSensei'
           >
-            <FontAwesomeIcon icon={faGithub} color='black' />
+            <FontAwesomeIcon icon={faGithub} color='white' />
           </a>
           <a
             target='_blank'
             rel='noopener noreferrer'
-            style={{ fontSize: '7vw', marginTop: '1.5vh' }}
+            style={{ fontSize: '180px', marginTop: '1.5vh' }}
             href='https://www.youtube.com'
           >
             <FontAwesomeIcon icon={faYoutube} color='#ff0000' />

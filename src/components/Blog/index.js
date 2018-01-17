@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 
+import './styles.css';
+
 class Blog extends Component {
-    render() {
-        return (
-            <div id='underConstruction'>
-            <h1>Under Construction!</h1>
-                <span role='img' className='logos' aria-label='guy' style={{ fontSize: '6vw' }}>🚧</span>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div id='underConstruction'>
+        <h1 style={{ color: 'white' }}>Under Construction!</h1>
+        <h1 role='img' className='logos' aria-label='guy'>🚧</h1>
+      </div>
+    );
+  }
 }
 
 export default Blog;
