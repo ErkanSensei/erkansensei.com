@@ -50,6 +50,7 @@
   transform-origin: left center;
   transform: rotate(-5deg);
   margin: 0 -1vw;
+  padding-left: 0.5vw;
 }
 #menuText, .menuDropdown > .Dropdown-control > .Dropdown-placeholder {
   font-size: 40px;

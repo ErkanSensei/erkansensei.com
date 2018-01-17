@@ -143,7 +143,7 @@ export default class App extends React.Component {
 
   render() {
     const Comp = components[this.state.currentComponent];
-    
+
     return (
       <div className='App' id='App'>
         <div id='menu'>
@@ -156,7 +156,7 @@ export default class App extends React.Component {
               'A CONTACTABLE',
             ]}
             onChange={e => this.onSelect(e)}
-            value={this.state.content.replace('A', '')}
+            value={this.state.content.split(' ')[1]}
             placeholder='Select an option'
           />
         </div>
