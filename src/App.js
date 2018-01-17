@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown';
 import Card from './components/Card';
 import IPhone from './components/IPhone';
 import Macbook from './components/Macbook';
+import Projects from './components/Projects';
 import 'react-dropdown/style.css';
 import './App.css';
 
@@ -72,8 +73,8 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      content: 'Projects',
-      colors: ['A WEB/MOBILE', '#DC4547'],
+      content: '(click here)',
+      contentPos: 0,
     };
     this.colors = {
       'A WEB/MOBILE': '#DC4547',
@@ -85,11 +86,11 @@ export default class App extends React.Component {
 
   componentDidMount() {
     $(document).ready(() => {
-      $(window).scroll(function () {
-        if ($(this).scrollTop() > 200) {
-          $('#menu').fadeIn(500);
+      $('body').scroll(() => {
+        if ($('#content').offset().top <= 500) {
+          $('#menu').slideDown(300);
         } else {
-          $('#menu').fadeOut(500);
+          $('#menu').slideUp(300);
         }
       });
     });
@@ -115,6 +116,8 @@ export default class App extends React.Component {
     transform: translateY(10%) translateX(16%) rotate(-45deg);
     transition: transform .3s;} .diagonal:hover {color: white}</style>`;
     $('head').append(headerStyles);
+
+    this.setState({ contentPos: $('#content').offset().top });
   }
   onSelect = (text) => {
     let textColor;
@@ -128,13 +131,16 @@ export default class App extends React.Component {
       .css('background-color', this.colors[text.value])
       .css('color', textColor)
       .css('transition', 'background-color 0.05s linear');
+    $('#menu')
+      .css('background-color', this.colors[text.value])
+      .css('color', textColor);
 
     setTimeout(
       () => {
         const elementClicked = $('#content');
         const destination = $(elementClicked).offset().top;
         $('html, body').animate({
-          scrollTop: parseInt($('#App').scrollTop() + destination, 10),
+          scrollTop: this.state.contentPos,
         });
       },
       250,
@@ -155,13 +161,29 @@ export default class App extends React.Component {
     transform: translateY(10%) translateX(16%) rotate(-45deg);
     transition: transform .3s;} .diagonal:hover {color: ${textColor}}</style>`;
     $('head').append(headerStyles);
-    this.setState({ colors: [this.colors[text.value], textColor] });
+    this.setState({
+      colors: [this.colors[text.value], textColor],
+      content: text.value,
+    });
   };
 
   render() {
     return (
       <div className='App' id='App'>
-        {/* <div id='menu'></div> */}
+        <div id='menu'>
+          <Dropdown
+            className='menuDropdown'
+            options={[
+              'A WEB/MOBILE',
+              'A SOCIAL',
+              'AN EXPERIENCED',
+              'A CONTACTABLE',
+            ]}
+            onChange={e => this.onSelect(e)}
+            value={this.state.content.replace('A', '')}
+            placeholder='Select an option'
+          />
+        </div>
         <div className='textContainer'>
           <div className='innerContainer'>
             <p className='mainText'>HELLO</p>
@@ -175,32 +197,14 @@ export default class App extends React.Component {
                 'A CONTACTABLE',
               ]}
               onChange={e => this.onSelect(e)}
-              value='(click here)'
+              value={this.state.content}
               placeholder='Select an option'
             />
             <p className='mainText'>DEVELOPER</p>
           </div>
         </div>
         <div id='content'>
-          {projects.map(project => (
-            <div className='projectContainer'>
-              {project.platform === 'web'
-                ? <Macbook image={project.image} />
-                : <IPhone image={project.image} />}
-              <Card
-                name={project.name}
-                codeLink={project.codeLink}
-                webLink={project.webLink}
-                description={project.description}
-                mainLanguage={project.mainLanguage}
-                technologies={project.technologies}
-                arrow='ar'
-                iosLink={project.iosLink}
-                platform={project.platform}
-                colors={this.state.colors}
-              />
-            </div>
-          ))}
+          <Projects />
         </div>
       </div>
     );

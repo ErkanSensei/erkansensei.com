@@ -45,11 +45,12 @@
 	position:fixed;
 	top:0px;
 	width:100%; 
-	height:75px; 
-	background-color:#DDDDDD;
-	color: #FFFFFF;
+	height:75px;
 	z-index:9999;
 	display: none;
+}
+#menuText, .menuDropdown > .Dropdown-control > .Dropdown-placeholder {
+  font-size: 40px;
 }
 .innerContainer {
   display: flex;

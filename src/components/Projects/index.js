@@ -69,114 +69,25 @@ const projects = [
     platform: 'iphone',
   },
 ];
-class Projects extends Component {
-  constructor() {
-    super();
-    this.state = {
-      projects: projects.slice(),
-      filter: 'latest',
-    };
-  }
-  componentDidMount() {
-    window.sr = ScrollReveal(); //eslint-disable-line
-    const content = document.getElementById('content');
-    sr.reveal('.card', { container: content, duration: 300, origin: 'left' }); //eslint-disable-line
-  }
-
-  filterProjects = (filter) => {
-    console.log(filter.target.value);
-    if (this.state.filter !== filter.target.value) {
-      this.setState({
-        projects: this.state.projects.slice().reverse(),
-        filter: filter.target.value,
-      });
-    }
-  };
-  render() {
-    return (
-      <div id='projectsContent'>
-        <div className='dropdown'>
-          <select
-            value={this.state.filter}
-            onChange={e => this.filterProjects(e)}
-          >
-            <option
-              selected={this.state.filter === 'earliest'}
-              className='filter'
-              value='earliest'
-              onClick={() => this.filterProjects('earliest')}
-            >
-              Earliest to Latest
-            </option>
-            <option
-              selected={this.state.filter === 'latest'}
-              className='filter'
-              value='latest'
-              onClick={() => this.filterProjects('latest')}
-            >
-              Latest to Earliest
-            </option>
-          </select>
-        </div>
-        <FlipMove duration={250}>
-          {this.state.projects.map((project, index) => {
-            if (index % 2) {
-              return (
-                <div className='timelineItems' key={Math.random()}>
-                  {project.platform === 'web'
-                    ? <Macbook image={project.image} />
-                    : <IPhone image={project.image} />}
-                  <section className='timeline'>
-                    <ul>
-                      <li style={{ marginRight: '41%' }}>
-                        <div />
-                      </li>
-                    </ul>
-                  </section>
-                  <Card
-                    name={project.name}
-                    codeLink={project.codeLink}
-                    webLink={project.webLink}
-                    description={project.description}
-                    mainLanguage={project.mainLanguage}
-                    technologies={project.technologies}
-                    arrow='arrow-left'
-                    iosLink={project.iosLink}
-                    platform={project.platform}
-                  />
-                </div>
-              );
-            }
-            return (
-              <div className='timelineItems' key={Math.random()}>
-                <Card
-                  name={project.name}
-                  codeLink={project.codeLink}
-                  webLink={project.webLink}
-                  description={project.description}
-                  mainLanguage={project.mainLanguage}
-                  technologies={project.technologies}
-                  arrow='arrow-right'
-                  iosLink={project.iosLink}
-                  platform={project.platform}
-                />
-                <section className='timeline'>
-                  <ul>
-                    <li style={{ marginLeft: '41%' }}>
-                      <div />
-                    </li>
-                  </ul>
-                </section>
-                {project.platform === 'web'
-                  ? <Macbook image={project.image} />
-                  : <IPhone image={project.image} />}
-              </div>
-            );
-          })}
-        </FlipMove>
+export default props => (
+  <div style={{ width: '100%', height: '100%' }}>
+    {projects.map(project => (
+      <div className='projectContainer'>
+        {project.platform === 'web'
+          ? <Macbook image={project.image} />
+          : <IPhone image={project.image} />}
+        <Card
+          name={project.name}
+          codeLink={project.codeLink}
+          webLink={project.webLink}
+          description={project.description}
+          mainLanguage={project.mainLanguage}
+          technologies={project.technologies}
+          arrow='ar'
+          iosLink={project.iosLink}
+          platform={project.platform}
+        />
       </div>
-    );
-  }
-}
-
-export default Projects;
+    ))}
+  </div>
+);
